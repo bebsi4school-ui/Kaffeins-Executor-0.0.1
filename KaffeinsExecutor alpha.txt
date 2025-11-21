@@ -1,0 +1,94 @@
+using System;
+using System.Windows.Forms;
+
+// Your API namespaces
+using KrnlAPI;
+using CloudyApi;
+using CloudyApis;
+using VelocityAPI;
+
+namespace kaffeins_executor_0._0._1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Optional startup logic
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Optional live-update logic
+        }
+
+        // -------------------------------------------
+        // INJECT BUTTON
+        // -------------------------------------------
+        private void btnInject_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Call the Inject function from each API
+                KrnlAPI.KrnlAPI.Inject();
+                CloudyApi.API.Inject();
+                CloudyApis.API.Inject();
+                VelocityAPI.Velocity.Inject();
+
+                MessageBox.Show("Injection completed successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Injection error:\n" + ex.Message);
+            }
+        }
+
+        // -------------------------------------------
+        // EXECUTE BUTTON
+        // -------------------------------------------
+        private void btnExecute_Click(object sender, EventArgs e)
+        {
+            // Get the script text from the RichTextBox
+            string script = richTextBox1.Text;
+
+            if (string.IsNullOrWhiteSpace(script))
+            {
+                MessageBox.Show("RichTextBox is empty. Please enter a script.");
+                return;
+            }
+
+            try
+            {
+                // Call the Execute function from each API with the script
+                KrnlAPI.KrnlAPI.Execute(script);
+                CloudyApi.API.Execute(script);
+                CloudyApis.API.Execute(script);
+                VelocityAPI.Velocity.Execute(script);
+
+                MessageBox.Show("Script executed successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Execution error:\n" + ex.Message);
+            }
+        }
+
+        // -------------------------------------------
+        // LINK LABEL – Opens your GitHub link
+        // -------------------------------------------
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var url = "https://github.com/bebsi4school-ui/Kaffeins-Executor-0.0.1";
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+    }
+}
